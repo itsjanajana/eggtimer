@@ -1,7 +1,7 @@
-/* Body & container */
+/* General Body and container */
 body {
   margin: 0;
-  background: #fff9db; /* pastel light yellow */
+  background-color: #fff9db; /* light pastel yellow */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100vh;
   display: flex;
@@ -10,7 +10,7 @@ body {
 }
 
 .container {
-  background: white;
+  background-color: white;
   border-radius: 20px;
   width: 360px;
   padding: 2rem 2.5rem;
@@ -20,12 +20,98 @@ body {
 
 /* Heading */
 h1 {
-  color: black;
-  margin-bottom: 1rem;
   font-weight: 700;
-  font-size: 2rem;
+  color: black;
+  margin-bottom: 0.5rem;
 }
 
-/* Timer display */
+/* Subtitle on index */
+.subtitle {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+/* Index grid for eggs */
+.egg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.egg-option {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.15s ease-in-out;
+}
+
+.egg-option img {
+  width: 90px;
+  height: 90px;
+  border-radius: 15px;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.egg-option:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Timer page styles */
+.timer-container {
+  width: 400px;
+  padding: 2rem 3rem;
+}
+
+.timer-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1rem 0 2rem;
+}
+
 .timer-display {
-  font-size: 3rem
+  font-size: 4rem;
+  font-weight: 700;
+  min-width: 150px;
+  user-select: none;
+}
+
+.timer-egg-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* Timer buttons */
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.timer-controls button {
+  background-color: #fdd835; /* bright yellow */
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease-in-out;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.timer-controls button:hover {
+  background-color: #fbc02d;
+}
