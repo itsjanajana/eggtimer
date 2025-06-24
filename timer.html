@@ -2,14 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Egg Timer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="container timer-container">
     <h1>Egg Timer</h1>
-    <div id="timer" class="timer-display">00:00</div>
-    <img id="egg-image" class="egg-image" src="" alt="Egg Type" />
+
+    <div class="timer-main">
+      <div id="timer" class="timer-display">00:00</div>
+      <img id="egg-image" class="timer-egg-image" src="" alt="Egg" />
+    </div>
+
     <div class="timer-controls">
       <button id="start">Start</button>
       <button id="pause">Pause</button>
@@ -29,16 +34,16 @@
       hard: 11 * 60,
       poach: 4 * 60,
       sunny: 3 * 60,
-      omelette: 4 * 60
+      omelette: 4 * 60,
     };
 
     const eggImages = {
-      soft: 'images/soft.png',
-      medium: 'images/medium.png',
-      hard: 'images/hard.png',
-      poach: 'images/poach.png',
-      sunny: 'images/sunny.png',
-      omelette: 'images/omelette.png'
+      soft: 'images/soft.jpg',
+      medium: 'images/medium.jpg',
+      hard: 'images/hard.jpg',
+      poach: 'images/poach.jpg',
+      sunny: 'images/sunny.jpg',
+      omelette: 'images/omelete.jpg',
     };
 
     const timerDisplay = document.getElementById('timer');
@@ -49,8 +54,13 @@
     let timeLeft = duration;
     let timer = null;
 
-    eggImage.src = eggImages[eggType] || '';
-    eggImage.alt = eggType ? eggType.charAt(0).toUpperCase() + eggType.slice(1) + " egg" : "Egg";
+    if (!eggType || !eggTimes[eggType]) {
+      alert("Invalid egg type selected.");
+      window.location.href = "index.html";
+    }
+
+    eggImage.src = eggImages[eggType];
+    eggImage.alt = eggType.charAt(0).toUpperCase() + eggType.slice(1) + " egg";
 
     function updateDisplay() {
       const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
