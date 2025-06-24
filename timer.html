@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Egg Timer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Egg Timer</h1>
+    <div id="timer" class="timer-display">00:00</div>
+    <div class="rotating-emoji" id="rotating-emoji">⏳</div>
+    <img id="egg-image" class="egg-image" src="" alt="Egg Type" />
+    <div class="timer-controls">
+      <button id="start">Start</button>
+      <button id="pause">Pause</button>
+      <button id="reset">Reset</button>
+    </div>
+  </div>
+
+  <audio id="alarm" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const eggType = params.get('type');
+
+    const eggTimes = {
+      soft: 5 * 60,
+      medium: 8 * 60,
+      hard: 11 * 60,
+      poach: 4 * 60,
+      sunny: 3 * 60,
+      omelette: 4 * 60
+    };
+
+    // Replace these URLs with your actual GitHub image URLs after uploading
+    const eggImages = {
+      soft: 'images/soft.png',
+      medium: 'images/medium.png',
+      hard: 'images/hard.png',
+      poach: 'images/poach.png',
+      sunny: 'images/sunny.png',
+      omelette: 'images/omelette.png'
+    };
+
+    const timerDisplay = document.getElementById('timer');
+    const eggImage = document.getElementById('egg-image');
+    const alarm = document.getElementById('alarm');
+    const rotatingEmoji = document.getElementById('rotating-emoji');
+
+    let duration = eggTimes[eggType] || 0;
+    let timeLeft = duration;
+    let timer = null;
+
+    eggImage.src = eggImages[eggType] || '';
+    eggImage.alt = eggType ? eggType.charAt(0).toUpperCase() + eggType.slice(1) + " egg" : "Egg";
+
+    function updateDisplay() {
+      const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+      const secs = (timeLeft % 60).toString().padStart(2, '0');
+      timerDisplay.textContent = `${mins}:${secs}`;
+    }
+
+    function startRotation() {
+      rotatingEmoji.classList.add('spin');
+    }
+
+    function stopRotation() {
+      rotatingEmoji.classList.remove('spin');
+    }
+
+    updateDisplay();
+
+    document.getElementById('start').onclick = () => {
+      if (!timer && timeLeft > 0) {
+        startRotation();
+        timer = setInterval(() => {
+          if (timeLeft > 0) {
+            timeLeft--;
+            updateDisplay();
+          } else {
+            clearInterval(timer);
+            timer = null;
+            stopRotation();
+            alarm.play();
+            alert("Time's up! Your egg is ready.");
+          }
+        }, 1000);
+      }
+    };
+
+    document.getElementById('pause').onclick = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+        stopRotation();
+      }
+    };
+
+    document.getElementById('reset').onclick = () => {
+      clearInterval(timer);
+      timer = null;
+      timeLeft = duration;
+      updateDisplay();
+      stopRotation();
+    };
+  </script>
+</body>
+</html>
