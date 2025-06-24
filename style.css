@@ -87,8 +87,8 @@ h1 {
 }
 
 .timer-egg-image {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 15px;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
